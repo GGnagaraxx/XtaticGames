@@ -1,0 +1,30 @@
+:root {
+
+    --bgGridColor: rgba(68, 68, 68, 0.288);
+    --bgColorX: #1d1d1d;
+    --bgColorY: #141414;
+
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+  
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-image: 
+        radial-gradient(var(--bgColorX), var(--bgColorY));
+  
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  
+body{
+
+    background-image: 
+    linear-gradient(var(--bgGridColor) .1em, transparent .1em),
+    linear-gradient(90deg, var(--bgGridColor) .1em, transparent .1em);
+
+    background-size: 3em 3em;
+}
