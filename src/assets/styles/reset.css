@@ -9,16 +9,17 @@
 *{
     padding: 0;
     margin: 0;
-    font: inherit;
+    /* font: inherit; */
 }
 
 html {
     hanging-punctuation: first last;
 }
 
-body{
+body,
+#root{
     position: relative;
-    min-height: 100svh;
+    min-height: 100svh !important;
     min-width: 320px;
 }
 

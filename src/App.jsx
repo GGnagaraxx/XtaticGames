@@ -1,10 +1,18 @@
-import { useState } from 'react'
+import { Route, Router, Routes } from "react-router-dom"
+import { routes } from "./assets/data/webRoutes"
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  const routerMap = routes.map((r, key) => 
+      <Route key={key} path={r.path} Component={r.component}/>
+    )
 
   return (
     <>
+      <Routes>
+        {routerMap}
+      </Routes>
     </>
   )
 }

@@ -1,0 +1,83 @@
+.page{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+}
+
+.dashboard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    width: 80%;
+    min-width: 275px;
+    max-width: 1000px;
+
+    min-height: 500px;
+
+    padding: 10px;
+    text-align: center;
+
+    /* background-color: rgb(29, 29, 29); */
+}
+
+.title h1{
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+
+.title span{
+    color: red;
+}
+
+
+
+
+/* dashboard menu and cards */
+
+.dashboard-menu{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 10px;
+
+    width: 90%;
+
+    /* background-color: grey; */
+}
+
+
+.dashboard-card{
+    cursor: pointer;
+    width: 200px;
+    height: 250px;
+
+    border-radius: 5px;
+    overflow: hidden;
+
+    background-color: var(--secondaryColor);
+    box-shadow: 0 0 10px var(--secondaryColor-dark);
+
+    transition: translate 0.25s;
+}
+
+.dashboard-card:hover{
+    box-shadow: 0 0 15px var(--primaryColor);
+    translate: 0 -10px;
+}
+
+.card-img{
+    width: 100%;
+    min-height: 200px;
+    background-color: var(--secondaryColor-dark);
+    object-fit: contain;
+
+    margin-bottom: 10px;
+}
+
+.card-label{
+    
+}
