@@ -1,0 +1,63 @@
+/* .xnos.page-content{
+
+} */
+
+
+.game-header{
+    display: flex;
+    justify-content: space-evenly;
+
+    width: 100%;
+
+    /* background-color: rgb(49, 49, 49); */
+}
+ 
+.turn-label{
+    text-shadow: 1px 1px rgb(80, 80, 80);
+}
+
+.info-icon{
+    text-shadow: 1px 1px rgb(80, 80, 80);
+}
+
+.game-container{
+    padding: 1rem;
+    width: 80%;
+    max-width: 500px;
+    min-width: 250px;
+    aspect-ratio: 1/1;
+    /* background-color: grey; */
+}
+
+.xno-grid{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 1rem;
+}
+
+.xno-grid-cell{
+    cursor: pointer;
+    aspect-ratio: 1/1;
+
+    border-radius: 10%;
+    background-color: var(--secondaryColor);
+    box-shadow: 0 0 5px 5px var(--secondaryColor-dark);
+}
+
+.xno-grid-cell:hover{
+    background-color: var(--secondaryColor-dark);
+    box-shadow: 0 0 5px 5px var(--secondaryColor);
+}
+
+.xno-grid-cell.disabled:hover{
+    background-color: var(--secondaryColor) !important;
+    box-shadow: 0 0 5px 5px var(--secondaryColor-dark) !important;
+}
+
+.x-mark{
+    background-color: grey;
+}
+
+.o-mark{
+    background-color: grey;
+}

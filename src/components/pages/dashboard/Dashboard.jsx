@@ -1,7 +1,9 @@
 import React from 'react'
-import './dashboard.css'
 import { routes } from '../../../assets/data/webRoutes'
+import { Link } from 'react-router-dom'
 import DashboardCards from './subcomponents/DashboardCards'
+
+import './dashboard.css'
 
 function Dashboard() {
 
@@ -9,11 +11,12 @@ function Dashboard() {
     const cardsMap = routes.map((r, key) => {
         if(r.inDashboard){
             return(
-                <DashboardCards 
-                    key={key}
-                    src={r.imgSrc} 
-                    alt={r.label + " game preview image."}
-                    cardLabel={r.label}/>
+                <Link key={key} to={r.path}>
+                    <DashboardCards 
+                        src={r.imgSrc} 
+                        alt={r.label + " game preview image."}
+                        cardLabel={r.label}/>
+                </Link>
             )
         }
     })

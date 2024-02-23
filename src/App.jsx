@@ -5,7 +5,10 @@ import { routes } from "./assets/data/webRoutes"
 function App() {
   
   const routerMap = routes.map((r, key) => 
-      <Route key={key} path={r.path} Component={r.component}/>
+      <Route 
+        key={key} 
+        path={r.path} 
+        Component={r.component}/>
     )
 
   return (
