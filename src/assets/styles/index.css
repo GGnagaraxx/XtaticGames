@@ -5,7 +5,7 @@
     --bgColorY: #141414;
 
 
-    --primaryColor: red;
+    --primaryColor: rgb(214, 25, 25);
     --secondaryColor: #202020;
     --secondaryColor-dark: #0f0f0f;
 
@@ -68,7 +68,7 @@ body{
 }
 
 .title span{
-    color: red;
+    color: var(--primaryColor);
 }
 
 .grid-container{

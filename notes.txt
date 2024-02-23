@@ -6,3 +6,5 @@ Game Ideas:
 - Simon Says
 - Hangman
 - Card Matching Game
+
+https://random-word-api.herokuapp.com/word

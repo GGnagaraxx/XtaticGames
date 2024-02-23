@@ -25,12 +25,6 @@ function XOPage() {
   ])
   const [turn, setTurn] = useState("X");
 
-  const styles = {
-    turnSpan: {
-      color: turn == "X" ? "red" : "blue"
-    }
-  }
-
 
   function handleGridClick(e){
     
@@ -66,8 +60,8 @@ function XOPage() {
                 <h1>X <span>&</span> Os</h1>
             </div>
             <div className="game-header">
-              <h2 className='turn-label'>
-                <span style={styles.turnSpan}>{turn}</span>'s Turn
+              <h2 className={'turn-label ' + (turn == "X" ? "x-turn" : "o-turn")}>
+                <span>{turn}</span>'s Turn
               </h2>
               {/* <h2></h2> */}
               <FaInfoCircle className='info-icon'/>

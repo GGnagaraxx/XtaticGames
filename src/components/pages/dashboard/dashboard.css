@@ -42,5 +42,5 @@
 }
 
 .card-label span{
-    color: red;
+    color: var(--primaryColor);
 }

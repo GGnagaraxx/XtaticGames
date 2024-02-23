@@ -16,7 +16,16 @@
     text-shadow: 1px 1px rgb(80, 80, 80);
 }
 
+.turn-label.x-turn span{
+    color: var(--primaryColor)
+}
+
+.turn-label.o-turn span{
+    color: rgb(34, 174, 255)
+}
+
 .info-icon{
+    cursor: pointer;
     text-shadow: 1px 1px rgb(80, 80, 80);
 }
 
