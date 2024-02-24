@@ -6,6 +6,7 @@
 
 
     --primaryColor: rgb(214, 25, 25);
+    --opponentColor: rgb(68, 221, 255);
     --secondaryColor: #202020;
     --secondaryColor-dark: #0f0f0f;
 
@@ -30,6 +31,9 @@ body{
     background-image: 
     linear-gradient(var(--bgGridColor) .1em, transparent .1em),
     linear-gradient(90deg, var(--bgGridColor) .1em, transparent .1em);
+
+    background-position: center;
+
 
     background-size: 3em 3em;
 }
