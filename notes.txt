@@ -1,3 +1,5 @@
+XnOs Modal and reset Bugged
+
 Game Ideas:
 
 - X&Os
@@ -8,3 +10,4 @@ Game Ideas:
 - Card Matching Game
 
 https://random-word-api.herokuapp.com/word
+
