@@ -3,6 +3,7 @@ import { FaInfoCircle, FaRegCircle  } from "react-icons/fa";
 import { IoCloseSharp, IoEllipseOutline } from "react-icons/io5";
 
 import './xopage.css'
+import WinnerModal from './subcomponents/WinnerModal';
 
 function XOPage() {
 
@@ -30,16 +31,56 @@ function XOPage() {
     let hasWinner = false;
     const xLoc = parseInt(gridLoc[0]);
     const yLoc = parseInt(gridLoc[1]);
+    const gridEnds = [0,2]
+    let sameAround = [];
 
-    for(let i=-1; i<=1; i++){
-      const offA = i - 1;
-      const offB = i + 1;
+    for(let x=-1; x<=1; x++){
+      for(let y=-1; y<=1; y++){
+        const xOffset = xLoc + x;
+        const yOffset = yLoc + y;
 
-      console.log("Checked for Winner")
-      console.log("GridLoc: ", xLoc, yLoc)
-      // console.log("Check", gridSet[xLoc + offA][yLoc]);
+        if(
+          !(x == 0 && y == 0) &&
+          xOffset >= 0 && xOffset <= 2 &&
+          yOffset >= 0 && yOffset <= 2 &&
+          gridSet[xOffset][yOffset] && gridSet[xOffset][yOffset] == turn){
+            sameAround.push({x: x, y: y});
+        }
+      }
+    }
 
-      //winner check here
+    if((xLoc == 1 || yLoc == 1) && sameAround.length > 1){
+      for(let i = 0; i < sameAround.length-1; i++){
+        let matched = false;
+        for(let j = i+1; j < sameAround.length; j++){
+          if(
+            sameAround[j].x == (0 - sameAround[i].x) && 
+            sameAround[j].y == (0 - sameAround[i].y)
+          ){
+            matched = true;
+            break;
+          }
+        }
+        if(matched){
+          hasWinner = true;
+          break;
+        }
+      }
+    }
+
+    if(sameAround.length > 0){
+      for(let i = 0; i < sameAround.length; i++){
+        const xFarOffset = xLoc + sameAround[i].x * 2;
+        const yFarOffset = yLoc + sameAround[i].y * 2;
+
+        if(
+          xFarOffset >= 0 && xFarOffset <= 2 &&
+          yFarOffset >= 0 && yFarOffset <= 2 &&
+          gridSet[xFarOffset][yFarOffset] == turn
+        ){
+          hasWinner = true;
+        }
+      }
     }
 
     
@@ -51,7 +92,9 @@ function XOPage() {
     const hasWinner = checkForWinner(gridLoc);
     if(hasWinner){
       setWinner(turn);
-      console.log("Winner is ", turn)
+      setTimeout(() => {
+        triggerReset()
+      }, 5000);
       return
     }
 
@@ -63,6 +106,9 @@ function XOPage() {
 
     if(!hasEmpty){
       setWinner("Draw");
+      setTimeout(() => {
+        triggerReset()
+      }, 5000);
     }
   }
 
@@ -81,6 +127,11 @@ function XOPage() {
     setTurn(turn == "X" ? "O" : "X")
   }
 
+  function triggerReset(){
+    setWinner(null);
+    setGridSet([["","",""],["","",""],["","",""]]);
+    setTurn("X");
+  }
 
   function getGridMark(grid){
     if(grid == "X")
@@ -98,7 +149,7 @@ function XOPage() {
         <div 
           className={
             "xno-grid-cell " +
-            (grid != "" ? "disabled " : "")
+            (grid != "" || winner != null ? "disabled " : "")
           } 
           id={id} 
           key={id}
@@ -113,22 +164,27 @@ function XOPage() {
 
   return (
     <div className='page'>
-        <div className='xnos page-content'>
-            <div className="title">
-                <h1>X <span>&</span> Os</h1>
-            </div>
-            <div className="game-header">
-              <h2 className={'turn-label ' + (turn == "X" ? "x-turn" : "o-turn")}>
-                <span>{turn}</span>'s Turn
-              </h2>
-              <FaInfoCircle className='info-icon'/>
-            </div>
-            <div className="game-container">
-              <div className="xno-grid">
-                {gridMap}
-              </div>
-            </div>
+      <div className='xnos page-content'>
+        <div className="title">
+          <h1>X <span>&</span> Os</h1>
         </div>
+        <div className="game-header">
+          <h2 className={'turn-label ' + (turn == "X" ? "x-turn" : "o-turn")}>
+            <span>{turn}</span>'s Turn
+          </h2>
+          <FaInfoCircle className='info-icon'/>
+        </div>
+        <div className="game-container">
+          <div className="xno-grid">
+            {gridMap}
+          </div>
+        </div>
+      </div>
+      <WinnerModal 
+        message={winner == "Draw" ?  "It's a Draw!" : winner + "s Wins!"} 
+        active={winner != null}
+        hasManualClose
+        handleCloseModal={triggerReset}/>
     </div>
   )
 }
