@@ -89,3 +89,40 @@ a{
     text-decoration: none;
     color: inherit;
 }
+
+*[tabIndex="0"]:focus{
+    border: none !important;
+    border-color: transparent !important;
+    outline: none;
+    box-shadow: 0 0 5px 0 var(--primaryColor);
+}
+
+.icons-container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.icon{
+    /* min-width: 15px;
+    min-height: 15px; */
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    margin: 5px;
+    border: none;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+}
+
+.interactable{
+    cursor: pointer;
+}
+
+.interactable:hover{
+    box-shadow: 0 0 5px 2.5px var(--primaryColor);
+}
+
+.interactable:active{
+    box-shadow: 0 0 5px 2.5px var(--opponentColor);
+}

@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { FaInfoCircle, FaRegCircle  } from "react-icons/fa";
-import { IoCloseSharp, IoEllipseOutline } from "react-icons/io5";
+import React, { useEffect, useState } from 'react'
+import { FaInfoCircle } from "react-icons/fa";
+import { IoCloseSharp, IoEllipseOutline, IoRefreshSharp } from "react-icons/io5";
 
 import './xopage.css'
 import WinnerModal from './subcomponents/WinnerModal';
@@ -26,6 +26,19 @@ function XOPage() {
   ])
   const [turn, setTurn] = useState("X");
   const [winner, setWinner] = useState();
+  const [winningGrid, setWinningGrid] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    if(!modalOpen){
+      triggerReset();
+    } else {
+      setTimeout(() => {
+        setModalOpen(false);
+      }, 5000);
+    }
+  }, [modalOpen])
+  
 
   function checkForWinner(gridLoc){
     let hasWinner = false;
@@ -49,6 +62,7 @@ function XOPage() {
       }
     }
 
+    let matchedGrids = [];
     if((xLoc == 1 || yLoc == 1) && sameAround.length > 1){
       for(let i = 0; i < sameAround.length-1; i++){
         let matched = false;
@@ -57,6 +71,11 @@ function XOPage() {
             sameAround[j].x == (0 - sameAround[i].x) && 
             sameAround[j].y == (0 - sameAround[i].y)
           ){
+            matchedGrids = [
+              (xLoc + sameAround[j].x) + "-" + (yLoc + sameAround[j].y),
+              xLoc + "-" + yLoc,
+              (xLoc + sameAround[i].x) + "-" + (yLoc + sameAround[i].y),
+            ]
             matched = true;
             break;
           }
@@ -78,23 +97,27 @@ function XOPage() {
           yFarOffset >= 0 && yFarOffset <= 2 &&
           gridSet[xFarOffset][yFarOffset] == turn
         ){
+          matchedGrids = [
+            (xLoc + sameAround[i].x) + "-" + (yLoc + sameAround[i].y),
+            xLoc + "-" + yLoc,
+            xFarOffset + "-" + yFarOffset
+          ]
           hasWinner = true;
         }
       }
     }
 
-    
-    return hasWinner
+    return {hasWinner, matchedGrids}
 
   }
 
   function checkForEndGame(gridLoc){
-    const hasWinner = checkForWinner(gridLoc);
-    if(hasWinner){
+    const ret = checkForWinner(gridLoc);
+
+    if(ret.hasWinner){
       setWinner(turn);
-      setTimeout(() => {
-        triggerReset()
-      }, 5000);
+      setWinningGrid(ret.matchedGrids);
+      setModalOpen(true);
       return
     }
 
@@ -106,9 +129,7 @@ function XOPage() {
 
     if(!hasEmpty){
       setWinner("Draw");
-      setTimeout(() => {
-        triggerReset()
-      }, 5000);
+      setModalOpen(true);
     }
   }
 
@@ -131,6 +152,7 @@ function XOPage() {
     setWinner(null);
     setGridSet([["","",""],["","",""],["","",""]]);
     setTurn("X");
+    setWinningGrid([]);
   }
 
   function getGridMark(grid){
@@ -140,7 +162,6 @@ function XOPage() {
       return (<IoEllipseOutline className='xno-mark o-mark'/>)
   }
 
-
   const gridMap = gridSet.map((gridRow, rowKey) => 
     gridRow.map((grid, key) => {
       const id = rowKey + "-" + key;
@@ -149,10 +170,13 @@ function XOPage() {
         <div 
           className={
             "xno-grid-cell " +
-            (grid != "" || winner != null ? "disabled " : "")
+            (grid != "" || winner != null ? " disabled" : "") + 
+            (winningGrid.includes(id) && winner == "X" ? " x-winning-grid" : "") +
+            (winningGrid.includes(id) && winner == "O" ? " o-winning-grid" : "")
           } 
           id={id} 
           key={id}
+          tabIndex={0}
           onClick={handleGridClick}>
           {
             getGridMark(grid)
@@ -172,7 +196,13 @@ function XOPage() {
           <h2 className={'turn-label ' + (turn == "X" ? "x-turn" : "o-turn")}>
             <span>{turn}</span>'s Turn
           </h2>
-          <FaInfoCircle className='info-icon'/>
+          <div className="icons-container">
+            <IoRefreshSharp 
+              className='refresh-icon icon interactable' 
+              tabIndex={0}
+              onClick={triggerReset}/>
+            <FaInfoCircle className='info-icon icon interactable' tabIndex={0}/>
+          </div>
         </div>
         <div className="game-container">
           <div className="xno-grid">
@@ -182,9 +212,9 @@ function XOPage() {
       </div>
       <WinnerModal 
         message={winner == "Draw" ?  "It's a Draw!" : winner + "s Wins!"} 
-        active={winner != null}
+        active={modalOpen}
         hasManualClose
-        handleCloseModal={triggerReset}/>
+        handleCloseModal={() => setModalOpen(false)}/>
     </div>
   )
 }

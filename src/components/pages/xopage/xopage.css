@@ -25,7 +25,6 @@
 }
 
 .info-icon{
-    cursor: pointer;
     text-shadow: 1px 1px rgb(80, 80, 80);
 }
 
@@ -62,7 +61,7 @@
 
 .xno-grid-cell:hover{
     background-color: var(--secondaryColor-dark);
-    box-shadow: 0 0 5px 5px var(--secondaryColor);
+    box-shadow: 0 0 5px 5px var(--secondaryColor) !important;
 }
 
 .xno-grid-cell.disabled{
@@ -72,6 +71,14 @@
 .xno-grid-cell.disabled:hover{
     background-color: var(--secondaryColor) !important;
     box-shadow: 0 0 5px 5px var(--secondaryColor-dark) !important;
+}
+
+.xno-grid-cell.x-winning-grid{
+    box-shadow: 0 0 5px 5px var(--primaryColor);
+}
+
+.xno-grid-cell.o-winning-grid{
+    box-shadow: 0 0 5px 5px var(--opponentColor);
 }
 
 .xno-mark{
