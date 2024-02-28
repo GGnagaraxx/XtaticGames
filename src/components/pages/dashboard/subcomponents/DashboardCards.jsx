@@ -5,7 +5,7 @@ function DashboardCards(props) {
   const {src, alt, cardLabel} = props;
 
   return (
-    <div className='dashboard-card'>
+    <div className='dashboard-card fancy'>
         <img 
           className='card-img' 
           src={src} 

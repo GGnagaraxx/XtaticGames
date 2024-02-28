@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function WinnerModal(props) {
 
     const {message, active, hasManualClose, handleCloseModal} = props;
+
+    useEffect(() => {
+      
+        if(active){
+            document.getElementById("winner-modal-close-btn").focus()
+        }
+
+    }, [active])
+    
 
     return (
         <div className={"modal-backdrop" + (active ? " active" : "")}>
@@ -11,6 +20,7 @@ function WinnerModal(props) {
             </div>
             <button 
                 className={'modal-close-btn' + (hasManualClose ? " visible" : "")}
+                id="winner-modal-close-btn"
                 onClick={handleCloseModal}> 
                     Close 
             </button>

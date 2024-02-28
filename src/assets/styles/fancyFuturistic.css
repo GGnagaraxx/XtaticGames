@@ -1,0 +1,58 @@
+.fancy{
+    background-color: var(--secondaryColor-dark);
+    position: relative;
+    padding: 3px;
+}
+
+.fancy::before{
+    content: '';
+    position: absolute;
+    background-color: var(--primaryColor);
+
+    width: 150%;
+    height: 50%;
+
+    top: 50%;
+    left: 50%;
+
+    translate: -50% -50%;
+    rotate: 30deg;
+}
+
+.fancy::after{
+    content: '';
+    position: absolute;
+    background-color: var(--secondaryColor);
+
+    width: calc(100% - 3px);
+    height: calc(100% - 3px);
+
+    
+    top: 50%;
+    left: 50%;
+
+    translate: -50% -50%;
+}
+
+.fancy:hover::before{
+    animation: rotate 1.5s linear infinite;
+}
+
+.fancy:active::before{
+    background-color: var(--opponentColor);
+}
+
+@keyframes rotate {
+    from {
+        rotate: 25deg;
+    }
+
+    to {
+        rotate: 205deg;
+    }
+}
+
+.fancy *{
+    position: relative;
+    z-index: 1;
+}
